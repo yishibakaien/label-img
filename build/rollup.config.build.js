@@ -1,14 +1,14 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import banner from "rollup-plugin-banner2";
-import json from "@rollup/plugin-json";
-import pkg from "../package.json";
-import typescript from "@rollup/plugin-typescript";
-import { terser } from "rollup-plugin-terser";
-import dayjs from "dayjs";
-import dts from "rollup-plugin-dts";
-import { name, input } from "./config";
-import demoConfig from "./rollup.config.demo";
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import banner from 'rollup-plugin-banner2'
+import json from '@rollup/plugin-json'
+import pkg from '../package.json'
+import typescript from '@rollup/plugin-typescript'
+import { terser } from 'rollup-plugin-terser'
+import dayjs from 'dayjs'
+import dts from 'rollup-plugin-dts'
+import { name, input } from './config'
+import demoConfig from './rollup.config.demo'
 
 export default [
   // type
@@ -16,13 +16,13 @@ export default [
     input: input.type,
     output: {
       file: pkg.types,
-      format: "es",
+      format: 'es'
     },
     plugins: [
       dts({
-        respectExternal: true,
-      }),
-    ],
+        respectExternal: true
+      })
+    ]
   },
   // browser-friendly UMD build
   {
@@ -30,17 +30,17 @@ export default [
     output: {
       name,
       file: pkg.main,
-      format: "umd",
+      format: 'umd'
     },
     plugins: [
       json(),
       resolve(),
       commonjs({
-        extensions: [".js", ".ts"],
+        extensions: ['.js', '.ts']
       }),
       typescript(),
-      banner(getBanner),
-    ],
+      banner(getBanner)
+    ]
   },
   {
     input: input.main,
@@ -48,22 +48,22 @@ export default [
       {
         name,
         file: pkg.build,
-        format: "umd",
-      },
+        format: 'umd'
+      }
     ],
     plugins: [
       json(),
       resolve(),
       commonjs({
-        extensions: [".js", ".ts"],
+        extensions: ['.js', '.ts']
       }),
       typescript(),
       terser(),
-      banner(getBanner),
-    ],
+      banner(getBanner)
+    ]
   },
-  demoConfig,
-];
+  demoConfig
+]
 
 function getBanner() {
   return [
@@ -71,9 +71,9 @@ function getBanner() {
     ` * ${pkg.name} - v${pkg.version}`,
     ` * ${pkg.description}`,
     ` *`,
-    ` * ${dayjs().format("YYYY-MM-DD HH:mm:ss")}`,
+    ` * ${dayjs().format('YYYY-MM-DD HH:mm:ss')}`,
     ` * ${pkg.license} (c) ${pkg.author}`,
     `*/`,
-    ``,
-  ].join("\n");
+    ``
+  ].join('\n')
 }
