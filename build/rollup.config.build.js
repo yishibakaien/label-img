@@ -1,14 +1,14 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import banner from "rollup-plugin-banner2"
-import json from '@rollup/plugin-json';
-import pkg from '../package.json';
-import typescript from '@rollup/plugin-typescript'
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import banner from "rollup-plugin-banner2";
+import json from "@rollup/plugin-json";
+import pkg from "../package.json";
+import typescript from "@rollup/plugin-typescript";
 import { terser } from "rollup-plugin-terser";
-import dayjs from "dayjs"
+import dayjs from "dayjs";
 import dts from "rollup-plugin-dts";
-import { name, input } from "./config"
-import demoConfig from './rollup.config.demo';
+import { name, input } from "./config";
+import demoConfig from "./rollup.config.demo";
 
 export default [
   // type
@@ -21,8 +21,8 @@ export default [
     plugins: [
       dts({
         respectExternal: true,
-      })
-    ]
+      }),
+    ],
   },
   // browser-friendly UMD build
   {
@@ -30,17 +30,17 @@ export default [
     output: {
       name,
       file: pkg.main,
-      format: 'umd',
+      format: "umd",
     },
     plugins: [
       json(),
       resolve(),
-      commonjs({ 
-        extensions: ['.js', '.ts'],
+      commonjs({
+        extensions: [".js", ".ts"],
       }),
       typescript(),
-      banner(getBanner)
-    ]
+      banner(getBanner),
+    ],
   },
   {
     input: input.main,
@@ -48,34 +48,32 @@ export default [
       {
         name,
         file: pkg.build,
-        format: 'umd',
+        format: "umd",
       },
     ],
     plugins: [
       json(),
       resolve(),
-      commonjs({ 
-        extensions: ['.js', '.ts'],
+      commonjs({
+        extensions: [".js", ".ts"],
       }),
       typescript(),
       terser(),
-      banner(getBanner)
-    ]
+      banner(getBanner),
+    ],
   },
-  demoConfig
-]
+  demoConfig,
+];
 
-function getBanner (){
-  return (
-    [
-      `/**!`,
-      ` * ${pkg.name} - v${pkg.version}`,
-      ` * ${pkg.description}`,
-      ` *`,
-      ` * ${dayjs().format("YYYY-MM-DD HH:mm:ss")}`,
-      ` * ${pkg.license} (c) ${pkg.author}`,
-      `*/`,
-      ``
-    ].join('\n')
-  )
+function getBanner() {
+  return [
+    `/**!`,
+    ` * ${pkg.name} - v${pkg.version}`,
+    ` * ${pkg.description}`,
+    ` *`,
+    ` * ${dayjs().format("YYYY-MM-DD HH:mm:ss")}`,
+    ` * ${pkg.license} (c) ${pkg.author}`,
+    `*/`,
+    ``,
+  ].join("\n");
 }

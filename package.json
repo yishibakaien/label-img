@@ -12,6 +12,7 @@
   "scripts": {
     "build": "rollup -c build/rollup.config.build.js && ls -l ./dist",
     "dev": "rollup -c build/rollup.config.js -w",
+    "watch": "rollup -c build/rollup.config.watch.js -w",
     "test": "jest __tests__/**",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "postversion": "git push",
@@ -83,7 +84,17 @@
     "rollup-plugin-terser": "7.0.2",
     "ts-node": "^10.0.0",
     "tslib": "2.0.3",
-    "typescript": "4.1.2"
+    "typescript": "4.1.2",
+    "core-js": "^3.6.5",
+    "moment": "^2.29.3",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.15",
+    "@vue/cli-plugin-babel": "~4.5.13",
+    "@vue/cli-plugin-eslint": "~4.5.13",
+    "@vue/cli-plugin-pwa": "~4.5.13",
+    "@vue/cli-plugin-router": "~4.5.13",
+    "@vue/cli-service": "~4.5.13",
+    "@vue/compiler-sfc": "^3.0.0"
   },
   "dependencies": {
     "lodash": "^4.17.20"
